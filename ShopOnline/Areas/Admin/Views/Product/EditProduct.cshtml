@@ -1,0 +1,164 @@
+﻿@model ShopOnline.Models.Product
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id) <!-- id > 0  Update -->
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="category">Chọn danh mục</label>
+                                    @Html.DropDownListFor(model => model.Category_id, (SelectList)ViewBag.Categories, "-- Select category --", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="name">Tên sản phẩm</label>
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Product name" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="price">Giá</label>
+                                    @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Price" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="salePrice">Giá giảm</label>
+                                    @Html.TextBoxFor(model => model.Sale_price, new { @class = "form-control", placeholder = "Sale price" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="createBy">Tạo bởi</label>
+                                    @Html.DropDownList("Create_by", (IEnumerable<SelectListItem>)ViewBag.AspNetUsers, new { @class = "form-control", required = true })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="updateBy">Cập nhật bởi</label>
+                                    @Html.DropDownList("Update_by", (IEnumerable<SelectListItem>)ViewBag.AspNetUsers, new { @class = "form-control", required = true })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="Create_date">Create date</label>
+                                    @Html.TextBoxFor(model => model.Create_date, new { @class = "form-control", type = "date", id = "Create_date" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="Update_date">Update date</label>
+                                    @Html.TextBoxFor(model => model.Update_date, new { @class = "form-control", type = "date", id = "Update_date" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="description">Mô tả</label>
+                                    @Html.TextBoxFor(model => model.Short_description, new { @class = "form-control", placeholder = "Description" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="description">Tổng số lượng </label>
+                                    @Html.TextBoxFor(model => model.TotalQuantity, new { @class = "form-control", placeholder = "Số lượng bán" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="productAvatar">Chọn ảnh đại diện</label>
+                                    <input id="productAvatar" name="productAvatar" type="file" class="form-control-file" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="productPicture">Chọn ảnh sản phẩm</label>
+                                    <input id="productPicture" name="productPicture" type="file" class="form-control-file" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="productPicture">Chọn ảnh sản phẩm</label>
+                                    <input id="productPicture" name="productPicture" type="file" class="form-control-file" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="productPicture">Chọn ảnh sản phẩm</label>
+                                    <input id="productPicture" name="productPicture" type="file" class="form-control-file" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <a href="~/Admin/Product/listProduct" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                        Quay lại danh sách
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->

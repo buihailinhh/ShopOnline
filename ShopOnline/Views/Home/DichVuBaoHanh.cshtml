@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Dịch Vụ Bảo Hành";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container container-custom">
+    <h1>@ViewBag.Title</h1>
+
+    @using (Html.BeginForm("SanPhamDaMua", "Home", FormMethod.Post, new { id = "formmethod" }))
+    {
+        <!-- Thông tin mặt hàng muốn bảo hành -->
+        <div class="form-section">
+            <h4>Qúy khách vui lòng nhập thông tin người mua để xác nhận mặt hàng cần bảo hành!</h4>
+            <div class="form-group">
+                <label for="customerName">Tên Khách Hàng</label>
+                <input type="text" class="form-control" id="customerName" name="CustomerName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Số điện thoại</label>
+                <input type="text" class="form-control" id="phoneNumber" name="PhoneNumber">
+            </div>
+        </div>
+
+        <!-- Điều kiện bảo hành -->
+        <div class="form-section">
+            <h4>Điều Kiện Bảo Hành</h4>
+            <ul class="policy-list">
+                <li class="policy-item">Sản phẩm phải còn trong thời gian bảo hành.</li>
+                <li class="policy-item">Phải có hóa đơn mua hàng hoặc chứng từ chứng minh mua sản phẩm.</li>
+                <li class="policy-item">Sản phẩm không bị hỏng hóc do sử dụng không đúng cách hoặc các sự cố không thuộc phạm vi bảo hành.</li>
+                <li class="policy-item">Chỉ áp dụng cho sản phẩm được mua từ cửa hàng hoặc nhà phân phối chính thức của chúng tôi.</li>
+            </ul>
+        </div>
+
+        <!-- Chính sách bảo hành -->
+        <div class="form-section">
+            <h4>Chính Sách Bảo Hành</h4>
+            <ul class="terms-list">
+                <li class="terms-item">Chúng tôi bảo hành miễn phí cho các lỗi sản xuất.</li>
+                <li class="terms-item">Chi phí vận chuyển sản phẩm đến trung tâm bảo hành sẽ do khách hàng chi trả.</li>
+                <li class="terms-item">Thời gian bảo hành có thể khác nhau tùy theo loại sản phẩm.</li>
+                <li class="terms-item">Sẽ không bảo hành nếu sản phẩm bị sửa chữa bởi các đơn vị không chính thức.</li>
+            </ul>
+        </div>
+
+        <!-- Đồng ý điều khoản -->
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+                <label class="form-check-label" for="acceptTerms">Tôi đã đọc và đồng ý với các điều kiện và chính sách bảo hành</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gửi Yêu Cầu</button>
+    }
+</div>
+
+
+<style>
+    .container-custom h1 {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .container-custom .form-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-custom h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+    }
+
+    .container-custom .form-group label {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .container-custom .form-control {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+        .container-custom .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+    .container-custom .form-check-label {
+        font-size: 1rem;
+        color: #2c3e50;
+    }
+
+    .container-custom .btn-primary {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        background-color: #3498db;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .container-custom .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+    .container-custom .policy-list, .container-custom .terms-list {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    .container-custom .policy-item, .container-custom .terms-item {
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: #2c3e50;
+    }
+</style>
+
+

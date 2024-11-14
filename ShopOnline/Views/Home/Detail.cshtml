@@ -1,0 +1,195 @@
+﻿@model ShopOnline.Models.ProductDetail
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<!-- Thông báo thành công khi thêm vào giỏ hàng -->
+<div id="successAlert" style="display:none;" class="alert alert-success">
+    Sản phẩm đã được thêm vào giỏ hàng!
+</div>
+
+<style>
+    .alert {
+        padding: 15px;
+        background-color: #4CAF50;
+        color: white;
+        margin-bottom: 15px;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+    }
+
+    .alert-success {
+        background-color: #4CAF50;
+    }
+
+    .price {
+        position: relative; /* Để có thể sử dụng vị trí tương đối */
+    }
+
+    .old {
+        text-decoration: line-through; /* Gạch ngang cho giá cũ */
+        color: #999; /* Màu sắc cho giá cũ */
+        margin-right: 5px; /* Khoảng cách với giá mới */
+    }
+
+    .new {
+        color: #f00; /* Màu sắc cho giá mới */
+    }
+
+    </style >
+
+    <main class="main" >
+    <div class="main__breadcrumb" >
+    <div class="container" >
+    <div class="bread-crumb" >
+    <span > <a href="@Url.Action("Index", "Home")" > Trang chủ</a > </span >
+    <span > <a href="@Url.Action("Index", "Category")" > Danh mục sản phẩm</a > </span >
+    <span > <a href="@Url.Action("Index", "Product")" > Sản phẩm</a > </span >
+    </div >
+    </div >
+    </div >
+    <div class="main__section" >
+    <div class="container" >
+    <div class="row" >
+    <div class="col-lg-3 none block" >
+    <div class="section__sidebar-widget" >
+    <div class="widget__inner" >
+    <div class="widget__list" >
+    <h3 class="widget__title" > Search</h3 >
+    <div class="widget__search-box" >
+    <input type="text" placeholder="Tìm kiếm..." class="widget__input" >
+    <button class="search-icon" >
+    <i class='bx bx-search' > </i >
+    </button >
+    </div >
+    </div >
+    <div class="widget__list" >
+    <h3 class="widget__title" > Danh mục</h3 >
+    <div class="widget__list-body" >
+    <ul class="sidebar-list" >
+    <li > <a href="#" > Tất cả sản phẩm</a > </li >
+    <li > <a href="#" > Điều hòa</a > </li >
+    <li > <a href="#" > Quạt hơi nước</a > </li >
+    <li > <a href="#" > Quạt để bàn</a > </li >
+    <li > <a href="#" > Tủ lạnh 4 cánh</a > </li >
+    <li > <a href="#" > Sản phẩm mới (8)</a > </li >
+    </ul >
+    </div >
+    </div >
+    </div >
+    </div >
+    </div >
+    <div class="col-lg-9 col-12" >
+    <div class="section__product-detail" >
+    <div class="row" >
+    <div class="col-12 col-lg-5" >
+    <div class="product__detail-img" >
+    <div class="swiper myProduct" >
+    <div class="swiper-wrapper" >
+    @foreach (var item in Model.Images)
+                                            {
+                                                 <div class="swiper-slide" >
+    <img src="@Url.Content(item.Path)" alt="Product Image" class="swiper__product-img" >
+    </div >
+                                            }
+    </div >
+    <div class="swiper-pagination" > </div >
+    </div >
+    </div >
+    </div >
+
+    <div class="col-12 col-lg-7" >
+    <div class="product__detail-summery" >
+    <div class="product__header mb-10" >
+    <h2 class="product__header-title" >@Model.Name </h2 >
+    </div >
+    <span class="price" >
+    <span class="new" >@Model.Sale_price (VNĐ)</span >
+    <span class="old" >@Model.Price (VNĐ)</span >
+    </span >
+
+    <div class="product__code mb-10" >
+    <span > Mã đơn hàng: ABC123</span >
+    </div >
+    <div class="product__inventroy mb-10" >
+    <span class="inventroy-title" > Tình trạng: </span >
+    <span class="inventory__varient" > Còn hàng</span >
+    </div >
+    <div class="product__quantity mb-10" >
+    <span > Số lượng:</span >
+    <div class="quantity__plus mb-10" >
+    <input type="number" name="quantity" id="quantity" value="1" min="1" >
+    </div >
+    </div >
+    <div class="product__cart-button" >
+    <div class="add__to__cart" >
+    <a href="javascript:void(0);" onclick="addToCart(@Model.Id, $('#quantity').val())" class="add-cart-link" > Thêm vào giỏ hàng</a >
+    </div >
+    <a href="#" class="add-cart-heart" >
+    <i class='bx bx-heart' > </i >
+    </a >
+    </div >
+    </div >
+    </div >
+    </div >
+    </div >
+    <!-- chi tiết sản phẩm -->
+    <div class="section__product-description" >
+    <h2 class="detail__heading" > Chi tiết sản phẩm</h2 >
+    <div class="detail__text" >
+    <p >@Model.Short_description</p >
+    </div >
+    </div >
+    <!-- sản phẩm tương tự -->
+    </div >
+    </div >
+    </div >
+    </div >
+    </main >
+
+    <script type="text/javascript" >
+    function addToCart(productId, quantity) {
+        let data = {
+        productId: productId,
+        quantity: quantity
+    };
+
+    jQuery.ajax({
+        url: '@Url.Action("AddToCart", "Cart")',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (jsonResult) {
+            let totalProducts = jsonResult.totalCartProducts;
+            $('#totalCartProductsId').html(totalProducts);
+
+            // Hiển thị thông báo thành công
+            $('#successAlert').fadeIn();
+            setTimeout(function() {
+                $('#successAlert').fadeOut();
+            }, 3000); // Thông báo sẽ tự động ẩn sau 3 giây
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            alert('Đã có lỗi xảy ra: ' + errorMessage);
+        }
+    });
+}
+
+
+</script>
+
+<link rel="stylesheet" href="~/Content/css/sanpham.css">
+
+
+
+
+

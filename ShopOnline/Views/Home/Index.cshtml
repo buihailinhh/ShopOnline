@@ -1,0 +1,252 @@
+﻿@model IPagedList<ShopOnline.Models.Product>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Thông báo thành công khi thêm vào giỏ hàng -->
+<div id="successAlert" style="display:none;" class="alert alert-success">
+    Sản phẩm đã được thêm vào giỏ hàng!
+</div>
+
+<style>
+    .alert {
+        padding: 15px;
+        background-color: #4CAF50;
+        color: white;
+        margin-bottom: 15px;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+    }
+
+    .alert-success {
+        background-color: #4CAF50;
+    }
+</style>
+<main class="main">
+    <div class="main__products-hot">
+        <div class="container">
+            <div class="main__products-title">
+                <p>Mặt hàng hiện có</p>
+            </div>
+            <!-- search -->
+            <form class="search-form" id="searchForm" method="GET" action="@Url.Action("Index", "Home")">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="keyword">Tên sản phẩm</label>
+                        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryId">Loại hàng</label>
+                        <select class="form-control" id="categoryId" name="categoryId">
+                            <option value="0">Lựa chọn theo loại hàng</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.Id" @(Request.QueryString["categoryId"] == category.Id.ToString() ? "selected" : "")>@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Mức giá</label>
+                        <select name="price" id="price" class="form-control">
+                            <option value="null">Chọn mức giá</option>
+                            <option value="0-1" @(Request.QueryString["price"] == "0-1" ? "selected" : "")>Dưới 1 triệu</option>
+                            <option value="1-5" @(Request.QueryString["price"] == "1-5" ? "selected" : "")>Từ 1 đến 5 triệu</option>
+                            <option value="5-10" @(Request.QueryString["price"] == "5-10" ? "selected" : "")>Từ 5 đến 10 triệu</option>
+                            <option value="10-20" @(Request.QueryString["price"] == "10-20" ? "selected" : "")>Từ 10 đến 20 triệu</option>
+                            <option value="20-9999" @(Request.QueryString["price"] == "20-9999" ? "selected" : "")>Trên 20 triệu</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-submit">
+                        <label for="price">Tìm kiếm</label>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+
+
+            <!--/ search -->
+            <div class="main__products-content">
+                <div class="row">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var product in Model)
+                        {
+                            <div class="col-12 col-lg-3 col-md-6">
+                                <div class="product">
+                                    <div class="thumb">
+                                        <a href="@Url.Action("Detail", "Home", new { id = product.Id })" class="image">
+                                            <img src="@Url.Content(product.Avatar)" class="fit-img zoom-img" alt="Product Image">
+                                        </a>
+                                    </div>
+
+                                    <div class="content">
+                                        <a href="@Url.Action("Detail", "Home", new { id = product.Id })" class="content-link">
+                                            <h5 class="title">@product.Name</h5>
+                                        </a>
+                                        <span class="price">
+                                            @if (product.Price.HasValue)
+                                            {
+                                                <span class="old">@product.Price.Value.ToString("N0")đ</span>
+                                            }
+                                            @if (product.Sale_price.HasValue)
+                                            {
+                                                <span class="new">@product.Sale_price.Value.ToString("N0")đ</span>
+                                            }
+                                        </span>
+                                        <span class="symbol">
+                                            <a href="#"><i class='bx bx-heart'></i></a>
+                                            <a href="javascript:void(0);" onclick="addToCart(@product.Id, 1)">
+                                                <i class='bx bx-cart'></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Hiện không có sản phẩm nào.</p>
+                    }
+                </div>
+
+            </div>
+            <div class="main__products-pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.Classic)
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+    function addToCart(productId, quantity) {
+        let data = {
+            productId: productId,
+            quantity: quantity
+        };
+
+        jQuery.ajax({
+            url: '@Url.Action("AddToCart", "Cart")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (jsonResult) {
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
+                $('#totalCartProductsId').html(jsonResult.totalCartProducts);
+
+                // Hiển thị thông báo thành công
+                $('#successAlert').fadeIn();
+                setTimeout(function() {
+                    $('#successAlert').fadeOut();
+                }, 3000); // Thông báo sẽ tự động ẩn sau 3 giây
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert('Đã có lỗi xảy ra: ' + errorMessage);
+            }
+        });
+    }
+    </script>
+
+</main>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+        .pagination a {
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .pagination a.active {
+                background-color: #007bff;
+                color: white;
+                border-color: #007bff;
+            }
+
+            .pagination a:hover {
+                background-color: #4169E1;
+            }
+</style>
+
+<style>
+
+    .search-form {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px; /* Khoảng cách giữa các phần tử */
+        align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    }
+
+    .form-group {
+        flex: 1 1 calc(25% - 15px); /* Chiếm 25% chiều rộng trừ khoảng cách */
+        box-sizing: border-box;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+    .form-group-submit {
+        flex: 1 1 auto;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+
+    </style>

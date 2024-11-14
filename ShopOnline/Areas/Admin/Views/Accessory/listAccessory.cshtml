@@ -1,0 +1,148 @@
+﻿
+@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<ShopOnline.Models.PhuKien>
+
+
+@{
+    ViewBag.Title = "listAccessory";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Start Page Content -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="p-2 bg-primary text-center">
+                                <h1 class="font-light text-white">@ViewBag.OrderCount</h1>
+                                <h6 class="text-white">Tổng Phụ Kiện</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card-body">
+                    <form action="@Url.Action("listAccessory","Accessory")" method="get">
+                        <div class="table-responsive">
+                            <div class="form-group mb-4 d-flex align-items-center">
+                                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Tìm kiếm tên phụ kiện" />
+                                <button type="submit" class="btn btn-primary ml-2">Search</button>
+                            </div>
+
+
+                            <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Avater</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Chức năng</th>
+                                        <th scope="col">Create date</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var accessory in Model)
+                                    {
+                                        <tr>
+                                            <td>@accessory.Id</td>
+                                            <td>@accessory.Name</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(accessory.Avartar))
+                                                {
+                                                    <img width="70px" height="70px" src="@Url.Content(accessory.Avartar)" class="light-logo" />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không có ảnh</span>
+                                                }
+                                            </td>
+                                            <td>@accessory.Description</td>
+                                            <td>@accessory.Price</td>
+                                            <td>@accessory.Mission</td>
+                                            <td>@accessory.Create_date</td>
+                                            <td>
+                                                <a class="btn" href="/admin/Accessory/editAccessory/@accessory.Id"><i class="fa fa-edit fa-fw"></i></a>
+                                            </td>
+                                            <td>
+                                                <a class="btn" href="/admin/Accessory/deleteAccessory/@accessory.Id"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Create by</th>
+                                        <th scope="col">Update by</th>
+                                        <th scope="col">Create date</th>
+
+
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <!-- Pagination and Page Number Display -->
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <a href="~/Admin/Accessory/addAccessory" role="button" class="btn btn-primary">Thêm Phụ kiện</a>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                                        <div>
+                                            @Html.PagedListPager(Model, page => Url.Action("listAccessory", new { page }))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+        .pagination a {
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .pagination a.active {
+                background-color: #007bff;
+                color: white;
+                border-color: #007bff;
+            }
+
+            .pagination a:hover {
+                background-color: #4169E1;
+            }
+</style>

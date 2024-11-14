@@ -1,0 +1,68 @@
+﻿@model ShopOnline.Models.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/css/dangnhap.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>ĐĂNG NHẬP</h1>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username", @class = "form-control", required = "required" })
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Mật khẩu", @class = "form-control", id = "password", required = "required" })
+                    <i class="fa fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+                <p class="forgot-password"><a href="#">Quên mật khẩu?</a></p>
+                <p class="register-link">Bạn chưa có tài khoản? <a href="/Account/Register">Tạo tài khoản</a></p>
+            }
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            var field = document.getElementById(fieldId);
+            var icon = field.nextElementSibling;
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+
+</html>

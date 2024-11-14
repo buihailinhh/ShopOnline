@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cc01fdebd75e4495ac12d31b3441913e" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopOnlineModel.Contact" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.C__MigrationHistory" Width="1.5" PointX="6.5" PointY="0.875" />
+        <EntityTypeShape EntityType="ShopOnlineModel.AspNetRole" Width="1.5" PointX="4.25" PointY="5.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.AspNetUserClaim" Width="1.5" PointX="9" PointY="4.125" />
+        <EntityTypeShape EntityType="ShopOnlineModel.AspNetUserLogin" Width="1.5" PointX="9" PointY="6.875" />
+        <EntityTypeShape EntityType="ShopOnlineModel.AspNetUser" Width="1.5" PointX="6.75" PointY="4.5" />
+        <AssociationConnector Association="ShopOnlineModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="ShopOnlineModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="ShopOnlineModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="ShopOnlineModel.Category" Width="1.5" PointX="1.25" PointY="7.625" />
+        <EntityTypeShape EntityType="ShopOnlineModel.Product" Width="1.5" PointX="6.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.ProductImage" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.SaleOrder" Width="1.5" PointX="8.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.SaleOrderProduct" Width="1.5" PointX="10.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.sysdiagram" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.Customer" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.BaoHanh" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.PhuKien" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.Warranti" Width="1.5" PointX="12.375" PointY="8.75" />
+        <EntityTypeShape EntityType="ShopOnlineModel.LOG_MO" Width="1.5" PointX="12.375" PointY="12.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

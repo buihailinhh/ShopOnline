@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "addAccessory";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form" action="@Url.Action("addAccessory", "Accessory", new { area = "Admin" })" method="post" modelAttribute="product" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="name">Tên Phụ Kiện</label>
+                                        <input path="name" type="text" class="form-control" id="name" name="name" placeholder="Accessory name" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="price">Gía </label>
+                                        <input path="price" type="number" autocomplete="off" id="price" name="price" class="form-control" placeholder="price" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="name">Chức năng</label>
+                                        <input path="mission" type="text" class="form-control" id="mission" name="mission" placeholder="Chức  năng" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_date">Create date</label>
+                                        <input type="datetime-local" class="form-control" id="Create_date" name="Create_date" required />
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                         
+
+                           
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="description">Mô Tả</label>
+                                        <textarea path="Description" id="Description" name="Description" class="form-control" rows="3" placeholder="Desription..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group mb-4">
+                                        <label for="isHot">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input" id="isHot" name="isHot" />
+                                        <label for="isHot">Is a hot product</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="form-group mb-4">
+                                        <label for="status">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input" id="status" name="status" />
+                                        <label for="status">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productAvatar">Chọn ảnh đại diện cho phụ kiện</label>
+                                        <input id="productAvatar" name="productAvatar" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                       
+                        
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <a href="~/Admin/Accessory/listAccessory" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                         Quay lại
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>

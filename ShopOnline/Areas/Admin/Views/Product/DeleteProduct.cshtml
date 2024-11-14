@@ -1,0 +1,19 @@
+﻿@model ShopOnline.Models.Product
+
+<h2>Xác nhận xóa</h2>
+<h3>Bạn chắc chắn xóa sản phẩm này?</h3>
+<div>
+    <h4>Product Name: @Model.Name</h4>
+    <h4>Ngay tao: @Model.Create_date</h4>
+
+    <!-- Hiển thị các thuộc tính khác của category nếu cần -->
+</div>
+
+@using (Html.BeginForm("DeleteProductConfirmed", "Product", new { id = Model.Id, area = "Admin" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        @Html.ActionLink("Cancel", "listProduct", new { area = "Admin" }, new { @class = "btn btn-default" })
+    </div>
+}

@@ -1,0 +1,211 @@
+﻿@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form" action="@Url.Action("AddProduct", "Product", new { area = "Admin" })" method="post" modelAttribute="product" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="category">Loại Hàng</label>
+                                        <select path="category.id" class="form-control" id="category" name="category_id">
+                                            @if (ViewBag.Categories != null)
+                                            {
+                                                foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                                                {
+                                                    <option value="@category.Value">@category.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="name">Tên sản phẩm</label>
+                                        <input path="name" type="text" class="form-control" id="name" name="name" placeholder="product name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="price">Gía Gốc</label>
+                                        <input path="price" type="number" autocomplete="off" id="price" name="price" class="form-control" placeholder="price" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="salePrice">Gía Sale</label>
+                                        <input path="Sale_price" type="number" autocomplete="off" id="Sale_price" name="Sale_price" class="form-control" placeholder="Sale price" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="salePrice">Số lượng bán</label>
+                                        <input path="TotalQuantity" type="number" autocomplete="off" id="TotalQuantity" name="TotalQuantity" class="form-control" placeholder="TotalQuantity" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="createBy">Create by</label>
+                                        <select class="form-control" id="Create_by" name="Create_by">
+                                            <option value="">Chọn người tạo</option>
+                                            @if (ViewBag.AspNetUsers != null)
+                                            {
+                                                foreach (var user in ViewBag.AspNetUsers as List<SelectListItem>)
+                                                {
+                                                    <option value="@user.Value">@user.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="updateBy">Update by</label>
+                                        <select class="form-control" id="Update_by" name="Update_by">
+                                            <option value="">Chọn người cập nhật</option>
+                                            @if (ViewBag.AspNetUsers != null)
+                                            {
+                                                foreach (var user in ViewBag.AspNetUsers as List<SelectListItem>)
+                                                {
+                                                    <option value="@user.Value">@user.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_date">Create date</label>
+                                        <input type="datetime-local" class="form-control" id="Create_date" name="Create_date" required />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Update_date">Update date</label>
+                                        <input type="datetime-local" class="form-control" id="Update_date" name="Update_date" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="description">Mô Tả</label>
+                                        <textarea path="Short_description" id="Short_description" name="Short_description" class="form-control" rows="3" placeholder="Short desription..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group mb-4">
+                                        <label for="isHot">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input" id="isHot" name="isHot" />
+                                        <label for="isHot">Is a hot product</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="form-group mb-4">
+                                        <label for="status">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input" id="status" name="status" />
+                                        <label for="status">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productAvatar">Choose product Avatar</label>
+                                        <input id="productAvatar" name="productAvatar" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productImages">Choose product Image</label>
+                                        <input id="productImages" name="productImages" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productImages">Choose product Image</label>
+                                        <input id="productImages" name="productImages" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productImages">Choose product Image</label>
+                                        <input id="productImages" name="productImages" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <a href="~/Admin/Product/listProduct" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                            Back to list
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Save product</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+

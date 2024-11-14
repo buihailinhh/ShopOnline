@@ -1,0 +1,76 @@
+﻿@model ShopOnline.Models.AspNetUser
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main">
+    <div class="main__breadcrumb">
+        <div class="container">
+            <div class="bread-crumb">
+                <span><a href="@Url.Action("Index", "Home")">Trang chủ</a></span>
+                <span><a href="#">Liên hệ</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__contact">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Form -->
+                <div class="col-12 col-lg-6">
+                    <div class="contact__title">
+                        <h2 class="title">Liên lạc</h2>
+                    </div>
+                    <div class="contact__form">
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-info">
+                                @ViewBag.Message
+                            </div>
+                        }
+
+                        @using (Html.BeginForm("ContactConFirm", "Home", FormMethod.Post, new { id = "formmethod" }))
+                        {
+
+                            <input class="form-control mt-2" type="text" id="last_name" name="last_name" placeholder="Họ tên" required="required" />
+                            <input class="form-control mt-2" type="text" id="phone" name="phone" placeholder="Số điện thoại" required="required" />
+                            <textarea class="form-control mt-2" rows="3" id="note" name="note" placeholder="Nội dung" required="required"></textarea>
+                            <div class="d-grid">
+                                <button class="btn btn-block btn-dark mt-2" id="btnsubmit" name="btnsubmit" type="submit">Send<span class="fa fa-paper-plane ms-1"></span></button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-12 col-lg-6">
+                    <div class="contact__title">
+                        <h2 class="title">Liên hệ với chúng tôi</h2>
+                    </div>
+                    <p class="contact__description">
+                        Mọi thông tin chi tiết bạn có thể liên lạc với chúng tôi qua Email hoặc Hotline bên dưới, chúng tôi sẽ cố gắng trả lời bạn sớm nhất. THANK YOU SO MUCH!
+                    </p>
+                    <ul class="contact__address">
+                        <li><i class='bx bx-phone'></i> 012345678</li>
+                        <li><i class='bx bx-envelope'></i> mail@gmail.com</li>
+                        <li><i class='bx bx-facebook'></i> Facebook</li>
+                        <li><i class='bx bx-zalo'></i> Zalo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="main__map">
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1612.1966650274296!2d105.78817454726801!3d20.980166368165296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acce762c2bb9%3A0xbb64e14683ccd786!2zSOG7jWMgVmnhu4duIENOIELGsHUgQ2jDrW5oIFZp4buFbiBUaMO0bmcgLSBIw6AgxJDDtG5n!5e0!3m2!1svi!2s!4v1647935982673!5m2!1svi!2s"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</main>
+
+<link rel="stylesheet" href="~/Content/css/lienhe.css">

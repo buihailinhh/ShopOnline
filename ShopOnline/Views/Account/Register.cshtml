@@ -1,0 +1,86 @@
+﻿@model ShopOnline.Models.RegisterViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồ gia dụng HL - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/css/dangki.css">
+</head>
+
+<body style="background-color:antiquewhite">
+    <div class="register-container">
+        <div class="register-form">
+            <h1>TẠO TÀI KHOẢN</h1>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Họ&Tên", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+
+                <div class="input-group">
+                    <i class="fa fa-envelope"></i>
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Mật khẩu", @class = "form-control", id = "password" })
+                    <i class="fa fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Xác nhận mật khẩu", @class = "form-control", id = "confirmPassword" })
+                    <i class="fa fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+
+                <button type="submit" class="btn">Đăng kí</button>
+                <p class="login-link"> Đã có tài khoản <a href="/Account/Login">Đăng nhập</a></p>
+            }
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            var field = document.getElementById(fieldId);
+            var icon = field.nextElementSibling;
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            const password = document.querySelector("input[name='Password']").value;
+            const confirmPassword = document.querySelector("input[name='ConfirmPassword']").value;
+
+            if (password !== confirmPassword) {
+                alert("Mật khẩu không khớp!");
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+﻿@model ShopOnline.Models.SaleOrderProductDto
+
+@{
+    ViewBag.Title = "OrderConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main">
+    <div class="container">
+        <div class="main__products">
+            <div class="main__products-title">
+                <p>Cảm ơn bạn đã đặt hàng!</p>
+            </div>
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 align="center" class="page-title text-truncate text-dark font-weight-medium mb-1">
+                            Đơn hàng của bạn đã được đặt thành công
+                        </h3>
+                        <p align="center">Mã đơn hàng của bạn: <strong>@Model.Code</strong></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
+                            Thông tin đơn hàng
+                        </h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Model.Customer_name</td>
+                                    <td>@Model.Customer_address</td>
+                                    <td>@Model.Customer_mobile</td>
+                                    <td>@Model.Customer_email</td>
+                                    <td>@Model.total</td>
+                                    <td>@(Model.status == 1 ? "Đặt hàng thành công" : "Chưa xử lý")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Thông tin các sản phẩm đã mua -->
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1" style="color: red;">
+                            Các sản phẩm trong đơn hàng
+                        </h4>
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Tổng giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.saleOrderProducts != null && Model.saleOrderProducts.Any())
+                                {
+                                    foreach (var product in Model.saleOrderProducts)
+                                    {
+                                        <tr>
+                                            <td>@product.Name</td>
+                                            <td>@product.Price</td>
+                                            <td>@product.Quatity</td>
+                                            <td>@(product.Price * product.Quatity)</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4">Không có sản phẩm nào.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p align="center">Chúng tôi sẽ gửi thông tin chi tiết về đơn hàng của bạn qua email. Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi!</p>
+                        <div class="text-center">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Về trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,249 @@
+﻿@model IPagedList<ShopOnline.Areas.Admin.Data.ProductCategory>
+
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "listProduct";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- basic table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
+                            <div class="card card-hover">
+                                <div class="p-2 bg-primary text-center">
+                                    <h1 class="font-light text-white">@ViewBag.ProductCount</h1>
+                                    <h6 class="text-white">Sản Phẩm</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <form action="" method="get" style="margin-top:30px">
+                        <div class="table-responsive">
+
+                            <style>
+                                /* Thiết lập chiều rộng tối đa cho select */
+                                select {
+                                    width: 200px; /* Hoặc chiều rộng phù hợp với thiết kế của bạn */
+                                }
+                            </style>
+
+                            <div class="form-group mb-4 d-flex align-items-center">
+                                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Tìm danh mục" value="@Request.QueryString["keyword"]" />
+
+                                <select class="form-control ml-2" id="categoryId" name="categoryId">
+
+                                    @if (ViewBag.Categories != null)
+                                    {
+                                        foreach (var category in ViewBag.Categories as IEnumerable<SelectListItem>)
+                                        {
+                                            <option value="@category.Value" @(category.Value == Request.QueryString["categoryId"] ? "selected" : "")>@category.Text</option>
+                                        }
+                                    }
+                                </select>
+
+                                <button type="submit" class="btn btn-primary ml-2">Search</button>
+                            </div>
+
+                            <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Sale price</th>
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Description</th>
+                                       @*<th scope="col">Create by</th>*@
+                                        <th scope="col">Create date</th>
+                                        <th scope="col">Update date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Đã bán</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var products in Model)
+                                    {
+                                        <tr>
+                                            <td>@products.Id </td>
+                                            <td>@products.CategoryName</td>
+                                            <td>@products.Name</td>
+                                            <td>@products.Price</td>
+                                            <td>@products.Sale_price</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(products.Avatar))
+                                                {
+                                                    <img width="70px" height="70px" src="@Url.Content(products.Avatar)" class="light-logo" />
+                                                }
+                                                else
+                                                {
+                                                    <span>Không có ảnh</span>
+                                                }
+                                            </td>
+                                            <td>@products.Short_description </td>
+                                            @*<td>@products.Create_by </td>*@
+
+                                            <td>@products.Create_date </td>
+                                            <td>@products.Update_date </td>
+                                            <td>
+                                                <span id="_product_status_@products.Id">
+                                                    @if (products.Status.HasValue && products.Status.Value == 1)
+                                                    {
+                                                        <span class="text-success">Active</span>
+                                                        <button class="btn btn-sm btn-toggle-status" data-id="@products.Id" data-status="@products.Status">Deactivate</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-danger">Inactive</span>
+                                                        <button class="btn btn-sm btn-toggle-status" data-id="@products.Id" data-status="@products.Status">Activate</button>
+                                                    }
+                                                </span>
+                                            </td>
+                                            <td>@products.TotalQuantity</td>
+                                            <td>
+
+
+                                                Đã bán:@products.SoldQuantity
+                                                Còn lại: @(products.TotalQuantity - products.SoldQuantity)
+                                            </td>
+                                            <td>
+                                                <a class="btn" href="/admin/Product/EditProduct/@products.Id"><i class="fa fa-edit fa-fw"></i></a>
+                                            </td>
+                                            <td>
+                                                <a class="btn" href="/admin/Product/DeleteProduct/@products.Id"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Sale price</th>
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Description</th>
+                                        @*<th scope="col">Create by</th>*@
+
+                                        <th scope="col">Create date</th>
+                                        <th scope="col">Update date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">dã bán/ còn lại</th>
+                                      
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <a href="~/Admin/Product/AddProduct" role="button" class="btn btn-primary">Add Product</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                                        <div>
+                                            @Html.PagedListPager(Model, page => Url.Action("listProduct", new { page }))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .pagination a {
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .pagination a:hover {
+        background-color: #4169E1;
+    }
+</style>
+
+<!-- Cập nhật trạng thái -->
+@*<script>
+    $(document).ready(function () {
+        $('.btn-toggle-status').click(function (e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var productId = button.data('id');
+            var currentStatus = button.data('status');
+
+            $.ajax({
+                url: '@Url.Action("ToggleStatus", "Product", new { area = "Admin" })',
+                type: 'POST',
+                data: {
+                    id: productId,
+                    status: currentStatus
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Cập nhật trạng thái trong giao diện
+                        var newStatus = response.newStatus;
+                        var statusSpan = $('#_product_status_' + productId);
+
+                        if (newStatus == 1) {
+                            statusSpan.html('<span class="text-success">Active</span><button class="btn btn-sm btn-toggle-status" data-id="' + productId + '" data-status="' + newStatus + '">Deactivate</button>');
+                        } else {
+                            statusSpan.html('<span class="text-danger">Inactive</span><button class="btn btn-sm btn-toggle-status" data-id="' + productId + '" data-status="' + newStatus + '">Activate</button>');
+                        }
+                    } else {
+                        alert('Cập nhật trạng thái thất bại: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error: ' + status + error);
+                    alert('Có lỗi xảy ra khi cập nhật trạng thái. Vui lòng thử lại.');
+                }
+            });
+        });
+    });
+</script>*@

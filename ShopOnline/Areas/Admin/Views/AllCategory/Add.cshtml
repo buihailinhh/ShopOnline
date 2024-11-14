@@ -1,0 +1,166 @@
+﻿
+@{
+    Layout = null;
+}
+
+<h2>Add New Category</h2>
+<form id="addCategoryForm">
+    <div class="form-group">
+        <input type="text" id="categoryName" class="form-control" placeholder="Category Name" />
+    </div>
+    <div class="form-group">
+        <input type="text" id="categoryDescription" class="form-control" placeholder="Category Description" />
+    </div>
+    <div class="form-group">
+        <input type="datetime-local" class="form-control" id="Create_date" name="Create_date" required>
+    </div>
+
+
+    @Html.ActionLink("Cancel", "Index", new { area = "Admin" }, new { @class = "btn btn-default custom-cancel-btn" })
+    <button type="submit" class="btn btn-success">SAVE</button>
+
+</form>
+
+<style>
+
+    /* Toàn bộ phần tử */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #495057;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2{
+        text-align:center;
+    }
+    /* Cải thiện nút */
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    /* Bảng */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .table thead {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+
+    .custom-cancel-btn {
+        background-color: red; /* Màu nền nhẹ */
+        color: white; /* Màu chữ tối */
+        border: 1px solid #ced4da; /* Đường viền xám nhạt */
+        padding: 10px 20px; /* Đệm bên trong nút */
+        border-radius: 5px; /* Góc bo tròn */
+        transition: background-color 0.3s ease;
+    }
+
+        .custom-cancel-btn:hover {
+            background-color: #e9ecef; /* Thay đổi màu khi hover */
+            border-color: #adb5bd; /* Đường viền tối hơn khi hover */
+            color: #343a40; /* Màu chữ tối hơn khi hover */
+        }
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // Add new category when the form is submitted
+    $('#addCategoryForm').submit(function (event) {
+        event.preventDefault();
+
+        var categoryName = $('#categoryName').val();
+        var categoryDescription = $('#categoryDescription').val();
+        var Create_date = new Date($('#Create_date').val()).toISOString();
+
+        $.ajax({
+            url: '/api/categories/addcategory', // API URL để thêm category
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                Name: categoryName,
+                Description: categoryDescription,
+                Create_date: Create_date
+            }),
+            success: function (response) {
+                alert('Thêm Category thành công');
+                // Chuyển hướng về trang Index sau khi lưu thành công
+                window.location.href = 'Index';
+            },
+            error: function (error) {
+                alert('Thêm category không thành công: ' + error.responseText);
+            }
+        });
+    });
+
+
+
+</script>

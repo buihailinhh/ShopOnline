@@ -1,0 +1,24 @@
+﻿
+@model ShopOnline.Models.AspNetUser
+
+@{
+    ViewBag.Title = "DeleteUser";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<h2>Xác nhận xóa</h2>
+<h3>Bạn chắc chắn xóa tài khoản này?</h3>
+<div>
+    <h4>Category Name: @Model.UserName</h4>
+    <h4>Category Name: @Model.Email</h4>
+    <!-- Hiển thị các thuộc tính khác của category nếu cần -->
+</div>
+
+@using (Html.BeginForm("DeleteUserConfirmed", "User", new { id = Model.Id, area = "Admin" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        @Html.ActionLink("Cancel", "listUser", new { area = "Admin" }, new { @class = "btn btn-default" })
+    </div>
+}

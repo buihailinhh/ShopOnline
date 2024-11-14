@@ -1,0 +1,57 @@
+:root {
+  --primary-color: #f6ab49;
+}
+.main__contact {
+  margin-bottom: 20px;
+}
+.main__contact .contact__title {
+  margin: 20px 0;
+}
+.main__contact .contact__title .title {
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.main__contact .contact__form .contact__form-input {
+  margin-bottom: 15px;
+}
+.contact__form .contact__form-input .form-input,
+.contact__form .contact__form-input .form__textarea {
+  padding: 10px 15px;
+  background: #f8f8f8;
+  border: 1px solid transparent;
+  width: 100%;
+  font-size: 14px;
+}
+.main__contact .contact__form .contact__btn {
+}
+.main__contact .contact__form .contact__btn a {
+  text-align: center;
+  padding: 10px 30px;
+  background: var(--primary-color);
+  line-height: 30px;
+  border-radius: 10px;
+  color: white;
+}
+.main__contact .contact__form .contact__btn a:hover {
+  background: #000;
+}
+
+.main__contact .contact__description {
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: justify;
+}
+.main__contact .contact__address {
+  margin: 10px 0;
+}
+.main__contact .contact__address li {
+  font-size: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+}
+.main__contact .contact__address li i {
+  font-size: 20px !important;
+  padding-right: 10px;
+}

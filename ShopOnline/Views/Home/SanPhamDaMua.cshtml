@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "SanPhamDaMua";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1 style="text-align:center; font-size:2rem; font-weight:bold; color:#333; margin-bottom:1rem;">Sản phẩm đã mua</h1>
+
+    <div id="message-container">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @TempData["Message"]
+            </div>
+        }
+    </div>
+
+    @if (ViewBag.Products != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>STT</th> <!-- Thay "Id" thành "STT" -->
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Ngày mua</th>
+                    <th>Xác nhận bảo hành</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Products != null)
+                {
+                    int stt = 1;<!-- Khởi tạo biến đếm -->
+                    foreach (var product in ViewBag.Products)
+                    {
+                        <tr>
+                            <td>@stt</td> <!-- Hiển thị số thứ tự -->
+                            <td>@product.Name</td>
+                            <td>@product.Price</td>
+                            <td>@product.Quatity</td>
+                            <td>@product.Create_date</td>
+                            <td>
+                                <button class="btn btn-primary warranty-button" data-product-id="@product.Id">Xác nhận</button>
+                            </td>
+                        </tr>
+                        stt++; <!-- Tăng số thứ tự sau mỗi vòng lặp -->
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.warranty-button').click(function () {
+            var productId = $(this).data('product-id');
+
+            $.ajax({
+                url: '@Url.Action("KiemTraBaoHanh", "Home")',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#message-container').html('<div class="alert alert-info" role="alert">' + response.message + '</div>');
+                    if (response.redirect) {
+                        window.location.href = response.redirectUrl;
+                    }
+                },
+                error: function () {
+                    $('#message-container').html('<div class="alert alert-danger" role="alert">Có lỗi xảy ra. Vui lòng thử lại sau.</div>');
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,111 @@
+﻿
+
+@model ShopOnline.Models.PhuKien
+
+@{
+    ViewBag.Title = "editAccessory";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("editAccessory", "Accessory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id) <!-- id > 0  Update -->
+                        <div class="form-body">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="name">Tên sản phẩm</label>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Product name" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="price">Giá</label>
+                                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Price" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="salePrice">Chức năng</label>
+                                        @Html.TextBoxFor(model => model.Mission, new { @class = "form-control", placeholder = "Sale price" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_date">Create date</label>
+                                        @Html.TextBoxFor(model => model.Create_date, new { @class = "form-control", type = "date", id = "Create_date" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="description">Mô tả</label>
+                                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", placeholder = "Description" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="productAvatar">Chọn ảnh đại diện</label>
+                                        <input id="productAvatar" name="productAvatar" type="file" class="form-control-file" multiple="multiple">
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                         
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <a href="~/Admin/Accessory/listAccessory" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                            Quay lại danh sách
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "deleteAccessory";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+@model ShopOnline.Models.PhuKien
+
+<h2>Xác nhận xóa</h2>
+<h3>Bạn chắc chắn xóa sản phẩm này?</h3>
+<div>
+    <h4>Tên phụ kiện: @Model.Name</h4>
+    <h4>Ngay tao: @Model.Create_date</h4>
+    <h4>Chức năng: @Model.Mission</h4>
+    <h4>Gía:: @Model.Price</h4>
+
+    <!-- Hiển thị các thuộc tính khác của category nếu cần -->
+</div>
+
+@using (Html.BeginForm("deleteAccessoryConfirmed", "Accessory", new { id = Model.Id, area = "Admin" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        @Html.ActionLink("Cancel", "listAccessory", new { area = "Admin" }, new { @class = "btn btn-default" })
+    </div>
+}

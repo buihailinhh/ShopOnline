@@ -1,0 +1,102 @@
+﻿@model ShopOnline.Models.Category
+
+@{
+    ViewBag.Title = "EditCategory";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- basic table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.HiddenFor(model => model.Id) <!-- Ensure Id is included for the update -->
+
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Name">Category name</label>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "Name", placeholder = "Category name" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other form fields -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_by">Create by</label>
+                                        @Html.DropDownList("Create_by", (IEnumerable<SelectListItem>)ViewBag.AspNetUsers, new { @class = "form-control", id = "Create_by", required = true })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="UpdateBy">Update by</label>
+                                        @Html.DropDownList("Create_by", (IEnumerable<SelectListItem>)ViewBag.AspNetUsers, new { @class = "form-control", id = "Create_by", required = true })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_date">Create date</label>
+                                        @Html.TextBoxFor(model => model.Create_date, new { @class = "form-control", type = "date", id = "Create_date" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Update_date">Update date</label>
+                                        @Html.TextBoxFor(model => model.Update_date, new { @class = "form-control", type = "date", id = "Update_date" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="Description">Description</label>
+                                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", id = "Description", placeholder = "Description" })
+                                    </div>
+                                </div>
+                            </div>
+
+                         
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <a href="~/Admin/Category/listCategory" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                            Quay lại danh sách Loại Hàng
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>

@@ -1,0 +1,195 @@
+﻿
+@model IEnumerable<ShopOnline.Models.PhuKien>
+@{
+    ViewBag.Title = "Phụ Kiện Đồ Dân Dụng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="hero-section text-center mb-5">
+        <h1 class="display-4 font-weight-bold">Phụ Kiện Đồ Dân Dụng</h1>
+        <p class="lead">Khám phá các phụ kiện đi kèm các sản phẩm bạn muốn mua</p>
+    </div>
+
+    <!-- Danh mục sản phẩm -->
+    <div class="row">
+        <div class="col-md-3">
+            <h4 class="mb-4">Danh mục sản phẩm</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#">Phụ kiện tủ lạnh</a></li>
+                <li class="list-group-item"><a href="#">Phụ kiện máy giặt</a></li>
+                <li class="list-group-item"><a href="#">Phụ kiện Tivi</a></li>
+                <li class="list-group-item"><a href="#">Phụ kiện Phụ Kiện Loa</a></li>
+                <li class="list-group-item"><a href="#">Phụ kiện Quạt</a></li>
+            </ul>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="col-md-9">
+            <h1 class="mb-4">Danh sách phụ kiện</h1>
+
+            <div class="slick-prev"><i class="fas fa-chevron-left"></i></div>
+            <div class="slick-slider">
+                @foreach (var phuKien in Model)
+                {
+                    <div>
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top" src="@Url.Content(phuKien.Avartar)" alt="@phuKien.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@phuKien.Name</h5>
+                                <p class="card-text">@phuKien.Description</p>
+                                <p class="card-text text-danger">Giá: @phuKien.Price.ToString("N0") VNĐ</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="javascript:void(0);" onclick="addToCart(@phuKien.Id, 1)" class="btn btn-sm btn-primary">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="slick-next"><i class="fas fa-chevron-right"></i></div>
+
+        </div>
+    </div>
+</div>
+
+<!-- CSS tùy chỉnh -->
+<style>
+
+    /*.hero-section {
+        background-image: url('~/path/to/hero-image.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 60px 0;
+        border-radius: 15px;
+    }*/
+
+
+    .card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .list-group-item a {
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.2s;
+    }
+
+        .list-group-item a:hover {
+            color: #0056b3;
+        }
+
+    .slick-prev, .slick-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: #000;
+        z-index: 1;
+        cursor: pointer;
+    }
+    /*// css slick*/
+    .slick-prev {
+        left: -40px; /* Điều chỉnh vị trí sang trái */
+    }
+
+    .slick-next {
+        right: -40px; /* Điều chỉnh vị trí sang phải */
+    }
+
+        .slick-prev:hover, .slick-next:hover {
+            color: #007bff;
+        }
+
+
+
+</style>
+
+<script type="text/javascript">
+    function addToCart(itemId, quantity, isProduct) {
+        $.ajax({
+            type: "POST",
+            url: "/Cart/AddToCart",
+            data: {
+                productId: isProduct ? itemId : null,
+                accessoryId: isProduct ? null : itemId,
+                quantity: quantity
+            },
+            success: function (jsonResult) {
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
+                $('#totalCartProductsId').html(jsonResult.totalCartProducts);
+
+                // Hiển thị thông báo thành công
+                $('#successAlert').fadeIn();
+                setTimeout(function () {
+                    $('#successAlert').fadeOut();
+                }, 3000); // Thông báo sẽ tự động ẩn sau 3 giây
+            },
+            error: function () {
+                alert("Có lỗi xảy ra!");
+            }
+        });
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.slick-slider').slick({
+            slidesToShow: 3, // Số lượng phần tử hiển thị cùng lúc
+            slidesToScroll: 1, // Số lượng phần tử cuộn mỗi lần
+            autoplay: true, // Tự động chuyển slide
+            autoplaySpeed: 2000, // Thời gian giữa các lần chuyển slide
+            dots: true, // Hiển thị các dấu chấm điều hướng
+            prevArrow: $('.slick-prev'), // Mũi tên trái
+            nextArrow: $('.slick-next'), // Mũi tên phải
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+

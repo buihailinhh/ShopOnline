@@ -1,0 +1,430 @@
+﻿@using ShopOnline.Models
+<!-- toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồ Gia Dụng HL</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- ScrollReveal -->
+    <script src="./js/scrollreveal.min.js"></script>
+    <!-- BoxIcon -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="~/Content/css/reset.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- Reponsive -->
+    <link rel="stylesheet" href="~/Content/css/reponsive.css">
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header__top">
+                <div class="container">
+                    <p class="header__top-title">
+                        Welcome To our shop !
+                    </p>
+                </div>
+            </div>
+            <div class="header__bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <div class="header__bottom-logo">
+                                <a href="#"><img src="~/Content/img/logo-3.png" alt="Ảnh logo" class="logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 block none">
+                            <div class="header__bottom-menu">
+                                <ul>
+                                    <li class="header__bottom-menu-children"><a href="~/Home/Index">Trang chủ</a></li>
+                                    <li class="header__bottom-menu-children">
+                                        <a href="">Thiết Bị</a>
+                                        <ul class="mega__subnav">
+                                            <li class="mega__subnav-menu">
+                                                <h4 class="mega__menu-title">Máy Phát Hiện Tiền Gỉa, Tiền lẫn</h4>
+                                                <ul class="mega__subnav-menu-2">
+                                                    <li><a href="./danhmuc.html">Máy đếm tiền Modul 8000</a></li>
+                                                    <li><a href="./danhmuc.html">Quạt cây BQP</a></li>
+                                                    <li><a href="./danhmuc.html">Tivi LG 139</a></li>
+                                                    <li><a href="./danhmuc.html">Tủ lạnh Shap</a></li>
+                                                    <li><a href="./danhmuc.html">Quạt để bàn</li>
+                                                    <li><a href="./danhmuc.html">Điều hòa casper 123</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="mega__subnav-menu">
+                                                <h4 class="mega__menu-title">sản phẩm giảm giá</h4>
+                                                <ul class="mega__subnav-menu-2">
+                                                    <li><a href="./danhmuc.html"> Quạt hơi mước</a></li>
+                                                    <li><a href="./danhmuc.html">Tủ lạnh LG</a></li>
+                                                    <li><a href="./danhmuc.html">Ti vi SONY 24 inch</a></li>
+                                                    <li><a href="./danhmuc.html"></a></li>
+                                                    <li><a href="./danhmuc.html"></a></li>
+                                                    <li><a href="./danhmuc.html"></a></li>
+                                                </ul>
+                                            </li>
+
+
+                                        </ul>
+                                    </li>
+                                    <li class="header__bottom-menu-children"><a href="~/Home/PhuKien">Phụ kiện</a></li>
+                                    <li class="header__bottom-menu-children">
+                                        <a href="#">Dịch vụ</a>
+                                        <ul class="subnav">
+                                            @*<li><a href="#">Lắp đặt</a></li>*@
+                                            <li><a href="~/Home/DichVuBaoHanh">Bảo Hành</a></li>
+                                            @*<li><a href="#">Đổi sản phẩm</a></li>*@
+
+                                        </ul>
+                                    </li>
+                                    <li class="header__bottom-menu-children"><a href="~/Home/Contact">Liên hệ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-8 col-6">
+                            <div class="header__bottom-actions">
+                                <div class=" header__bottom-btn header__bottom-search">
+                                    <a href="#"><i class='bx bx-search'></i></a>
+                                    <div class="header__box">
+                                        <div class="header__bottom-box-search">
+                                            <input type="text" placeholder="Tìm kiếm..." class="header__search-input">
+                                            <div class="header__search-btn">
+                                                <i class='bx bx-search'></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__bottom-btn header__bottom-user">
+                                    <a href="#" id="userMenuToggle">
+                                        <i class='bx bx-user'></i>
+                                    </a>
+                                    <div class="user-menu" id="userMenu">
+                                        <a href="~/Account/Login"><i class='bx bx-log-in'></i> Đăng nhập</a>
+                                        <a href="~/Account/Register"><i class='bx bx-user-plus'></i> Đăng ký</a>
+
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class='bx bx-log-out'></i> Đăng xuất
+                                        </a>
+
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logout-form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class=" header__bottom-btn header__bottom-cart">
+                                    <a href="@Url.Action("CartView", "Cart")" class="header__bottom-cart">
+                                        <i class='bx bx-cart'></i>
+                                        <span id="totalCartProductsId" class="header__bottom-num">
+                                            @(Session["Cart"] != null ? ((List<CartItem>)Session["Cart"]).Sum(c => c.Quantity) : 0)
+                                        </span>
+                                    </a>
+                                  
+                                </div>
+                                <div class="header__bottom-btn header__bottom-mobilemenu">
+                                    <i class='bx bx-menu'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header__slider">
+                <div class="swiper mySwiper ">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide .header__slider-imgs">
+                            <img src="~/Content/img/slider-1.jpg" alt="" class="header__slider-img">
+                        </div>
+                        <div class="swiper-slide .header__slider-imgs">
+                            <img src="~/Content/img/silder-2.jpg" alt="" class="header__slider-img">
+                        </div>
+                        <div class="swiper-slide .header__slider-imgs">
+                            <img src="~/Content/img/silder-3.jpg" alt="" class="header__slider-img">
+                        </div>
+                        <div class="swiper-slide .header__slider-imgs">
+                            <img src="~/Content/img/slider-4.png" alt="" class="header__slider-img">
+                        </div>
+                    </div>
+                    <div class="swiper-button-next next"></div>
+                    <div class="swiper-button-prev prev"></div>
+                </div>
+            </div>
+        </header>
+
+        @RenderBody()
+
+        <footer class="footer">
+            <div class="footer__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="footer-widget">
+                                <div class="widget-header">
+                                    <h1 class="title">Về chúng tôi</h1>
+                                </div>
+                                <div class="widget-content">
+                                    <p>Với phương châm khách hàng là thượng đế, đề cao sự chính xác. Chúng tôi cam kết bán đúng giá, đúng chất lượng, tư vấn, bán hàng, bảo hành chu đáo đến với khách hàng</p>
+                                </div>
+                                <div class="widget-social">
+                                    <i class='bx bxl-facebook'></i>
+                                    <i class='bx bxl-instagram'></i>
+                                    <i class='bx bxl-youtube'></i>
+                                    <i class='bx bxl-github'></i>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="footer-widget">
+                                <div class="widget-header">
+                                    <h1 class="title">Hỗ trợ khách hàng</h1>
+                                </div>
+                                <div class="widget-list">
+                                    <ul>
+                                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                                        <li><a href="#">Điều khoản và điều kiện</a></li>
+                                        <li><a href="#">Chính sách bảo mật</a></li>
+                                        <li><a href="#">Chính sách thanh toán</a></li>
+                                        <li><a href="#">Chất lượng dịch vụ</a></li>
+                                        <li><a href="#">Hướng dẫn gửi trả hàng</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="footer-widget">
+                                <div class="widget-header">
+                                    <h1 class="title">Địa chỉ liên hệ</h1>
+                                </div>
+                                <div class="widget-list">
+                                    <ul>
+                                        <li>Mr. RonalDoMessi</li>
+                                        <li>Ngõ 2,Đại lộ Thăng Long, Nam Từ Liêm, Hà Nội</li>
+                                        <li>Email: <i>mail@gmail.com.vn</i></li>
+                                        <li>Facebook: </li>
+                                        <li>Hotline: 0946512323</li>
+                                        <li>buihailinh@gmail.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="footer-widget">
+                                <div class="widget-header">
+                                    <h1 class="title">Đăng ký nhận tin:</h1>
+                                </div>
+                                <div class="widget-content">
+                                    <p>
+                                        Đăng ký nhận tin mới nhất và được giảm giá 10% khi mua hàng đầu tiên của
+                                        bạn ..
+                                    </p>
+                                </div>
+                                <div class="widget-subscribe">
+                                    <form action="">
+                                        <input type="email" id="subs-email" placeholder="mail@gmai.com">
+                                        <button type="submit" class="widget-btn">Gửi</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="scroll__top">
+            <i class='bx bx-up-arrow-alt'></i>
+        </div>
+
+        <!-- mobile menu -->
+        <div class="mobile__menu-wrapper">
+            <div class="mobile__menu-body">
+                <div class="mobile__btn-close">
+                    <i class='bx bx-x'></i>
+                </div>
+                <div class="mobile__content">
+                    <div class="mobile__search-box">
+                        <form>
+                            <input type="text" placeholder="Tìm kiếm..." class="mobile__search-input">
+                            <button class="mobile__search-btn">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="mobile__navigation">
+                        <ul class="mobile__nav">
+                            <li class="mobile__children"><a href="./index.html" class="mobile__link">Trang chủ</li>
+                            <li class="mobile__children">
+                                <a href="#" class="mobile__link">
+                                    Thú cưng
+                                    <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="mobile__submenu">
+                                    <li class="mobile__submenu-item">
+                                        <a href="./danhmuc.html"
+                                           class="mobile__submenu-link">
+                                            Chó
+                                            Corgi
+                                        </a>
+                                    </li>
+                                    <li class="mobile__submenu-item">
+                                        <a href="./danhmuc.html"
+                                           class="mobile__submenu-link">
+                                            Chó
+                                            Beagle
+                                        </a>
+                                    </li>
+                                    <li class="mobile__submenu-item">
+                                        <a href="./danhmuc.html"
+                                           class="mobile__submenu-link">
+                                            Chó Alaska
+                                            Malamute
+                                        </a>
+                                    </li>
+                                    <li class="mobile__submenu-item">
+                                        <a href="./danhmuc.html"
+                                           class="mobile__submenu-link">
+                                            Chó Golden
+                                            Retriever
+                                        </a>
+                                    </li>
+                                    <li class="mobile__submenu-item">
+                                        <a href="./danhmuc.html"
+                                           class="mobile__submenu-link">
+                                            Chó Husky
+                                            Siberian
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mobile__children"><a href="#" class="mobile__link">Phụ kiện</a></li>
+                            <li class="mobile__children">
+                                <a href="#" class="mobile__link">Dịch vụ <i class='bx bx-chevron-down'></i></a>
+                                <ul class="mobile__submenu">
+                                    <li class="mobile__submenu-item">
+                                        <a href="#" class="mobile__submenu-link">Spa</a>
+                                    </li>
+                                    <li class="mobile__submenu-item">
+                                        <a href="#" class="mobile__submenu-link">
+                                            Chăm sóc
+                                            thú cưng
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mobile__children"><a href="./lienhe.html" class="mobile__link">Liên hệ </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Slider -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script src="~/Content/js/app.js"></script>
+    <script src="~/Content/js/mobileMenu.js"></script>
+</body>
+
+</html>
+
+
+<script>
+    document.getElementById('userMenuToggle').addEventListener('click', function (event) {
+        event.preventDefault();
+        var userMenu = document.getElementById('userMenu');
+        if (userMenu.style.display === 'none' || userMenu.style.display === '') {
+            userMenu.style.display = 'block';
+        } else {
+            userMenu.style.display = 'none';
+        }
+    });
+
+    // Close the menu if the user clicks outside of it
+    document.addEventListener('click', function (event) {
+        var userMenu = document.getElementById('userMenu');
+        if (!event.target.closest('.header__bottom-user')) {
+            userMenu.style.display = 'none';
+        }
+    });
+
+
+</script>
+
+<style>
+    
+
+        .header__bottom-btn a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+            .header__bottom-btn a:hover {
+                color: #ccc;
+            }
+
+    .user-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        min-width: 180px;
+        display: none;
+        z-index: 1000;
+    }
+
+        .user-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+            .user-menu a i {
+                margin-right: 10px;
+                font-size: 18px;
+            }
+
+            .user-menu a:hover {
+                background-color: #f1f1f1;
+            }
+
+            .user-menu a:first-child {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .user-menu a:last-child {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+</style>

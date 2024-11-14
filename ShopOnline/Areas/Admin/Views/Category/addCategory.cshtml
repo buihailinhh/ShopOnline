@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Areas/Admin/Views/Shared/ViewPage1.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form" action="@Url.Action("addCategory", "Category", new { area = "Admin" })" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Name">Category name</label>
+                                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Product name" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_by">Create by</label>
+                                        <select class="form-control" id="Create_by" name="Create_by" required>
+                                            @foreach (var user in ViewBag.AspNetUsers as List<SelectListItem>)
+                                            {
+                                                <option value="@user.Value">@user.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Update_by">Update by</label>
+                                        <select class="form-control" id="Update_by" name="Update_by" required>
+                                            @foreach (var user in ViewBag.AspNetUsers as List<SelectListItem>)
+                                            {
+                                                <option value="@user.Value">@user.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Create_date">Create date</label>
+                                        <input type="datetime-local" class="form-control" id="Create_date" name="Create_date" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="Update_date">Update date</label>
+                                        <input type="datetime-local" class="form-control" id="Update_date" name="Update_date" required>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label for="Description">Description</label>
+                                        <textarea id="Description" name="Description" class="form-control" rows="3" placeholder="Mô Tả..." required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group mb-4">
+                                        <label for="Status">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input" id="Status" name="Status">
+                                        <label for="Status">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <a href="@Url.Action("ListCategory", "Category", new { area = "Admin" })" class="btn btn-secondary active" role="button" aria-pressed="true">
+                                            Back to list
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Save category</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
